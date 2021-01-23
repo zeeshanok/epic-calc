@@ -2,7 +2,7 @@ use ansi_escapes::{CursorHide, CursorShow, EraseLines};
 use ansi_term::{Color, Style};
 use clipboard::{ClipboardContext, ClipboardProvider};
 use crossterm_input::{input, InputEvent, KeyEvent, RawScreen, Result};
-use std::cmp::Ordering;
+use std::{cmp::Ordering, io::stdin};
 use std::collections::HashMap;
 use std::io::{stdout, Write};
 
@@ -184,7 +184,6 @@ impl Expression {
         let iter = |p: &Vec<String>| {
             let mut parts = Vec::new();
             for i in p.iter() {
-                let i = i.trim();
                 let part = match i.parse::<f64>() {
                     Ok(num) => ExpressionPart::Number(num),
                     Err(_) => match Operation::from_str(i) {
@@ -208,7 +207,9 @@ impl Expression {
 
     fn parse_string(expr: &String) -> Expression {
         let tester = |c: char| !(c.is_numeric() || [' ', '.', '(', ')'].contains(&c));
-        let partitioned_parts = partition(expr, &tester);
+        let partitioned_parts = partition(expr, &tester).iter().map(|c|{
+            c.trim().to_string()
+        }).collect();
         Expression::parse_vec(&partitioned_parts, &postfix(&partitioned_parts), expr)
     }
 
