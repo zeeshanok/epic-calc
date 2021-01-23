@@ -87,7 +87,7 @@ fn main() -> Result<()> {
         count += 1;
         let mut e = Expression::parse_string(&string);
         print!(
-            "{}{}\n> {}",
+            "{}{}\n\r> {}",
             EraseLines(2),
             e.to_syn_high_string(),
             Color::RGB(200, 200, 200).paint(if string.is_empty() {
