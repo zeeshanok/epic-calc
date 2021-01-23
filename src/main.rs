@@ -1,5 +1,5 @@
 use ansi_escapes::{CursorHide, CursorShow, EraseLines};
-use ansi_term::{enable_ansi_support, Color, Style};
+use ansi_term::{Color, Style};
 use clipboard::{ClipboardContext, ClipboardProvider};
 use crossterm_input::{input, InputEvent, KeyEvent, RawScreen, Result};
 use std::cmp::Ordering;
@@ -12,7 +12,6 @@ fn main() -> Result<()> {
         CursorHide
     );
 
-    let _enabled = enable_ansi_support();
     let _raw = RawScreen::into_raw_mode()?;
     let input = input();
     let mut sync_stdin = input.read_sync();
