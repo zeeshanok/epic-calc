@@ -2,7 +2,7 @@ use ansi_escapes::{CursorHide, CursorShow, EraseLines};
 use ansi_term::{Color, Style};
 use clipboard::{ClipboardContext, ClipboardProvider};
 use crossterm_input::{input, InputEvent, KeyEvent, RawScreen, Result};
-use std::{cmp::Ordering, io::stdin};
+use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::io::{stdout, Write};
 
